@@ -4,6 +4,8 @@ UI Tests are gathered in directory **/tests/example.spec.js**
 
 Executing tests:
 
+Navigate to /tests
+
     npx playwright test --ui
 
 Project initialization:
