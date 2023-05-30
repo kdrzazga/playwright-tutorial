@@ -5,8 +5,8 @@ global.checkboxesUrl = mainUrl + 'basic-checkbox-demo.html';
 global.simpleFormUrl = mainUrl + 'basic-first-form-demo.html';
 
 test('has title', async ({ page }) => {
-  console.log(`Navigating to ${mainUrl}`);
-  await page.goto(mainUrl);
+  console.log(`Navigating to ${global.mainUrl}`);
+  await page.goto(global.mainUrl);
 
   // Expect a title "to contain" a substring.
   await expect(page).toHaveTitle(/Selenium Easy/);
@@ -42,15 +42,26 @@ test('simple form', async ({ page }) => {
   console.log(`Navigating to ${simpleFormUrl}`);
   await page.goto(simpleFormUrl);
 
+  const a = 3;
+  const b = 2;
+  var expectedResult = a + b;
+
   const textboxA = await page.$('#value1');
-  await textboxA.type('3');
+  await textboxA.type(a.toString());
   
   const textboxB = await page.$('#value2');
-  await textboxB.type('2');
+  await textboxB.type(b.toString());
   
   const buttons = await page.$$('[class=\'btn btn-primary\']');
   const sumButton = buttons[1];
   await sumButton.click();
 
+  const result = await page.$('#displayvalue');
+  const resultString = await result.textContent();
+  
   await page.screenshot({ path: '2_forms.png' });
+  
+  console.log(`result string: ${resultString} Expected: ${expectedResult}`);  
+  await expect(resultString.startsWith(expectedResult.toString())).toBe(true);
+  
 });
