@@ -1,5 +1,7 @@
 npm install --save-dev jest //needed to run all files from signle file, mentioned in package.json
 
+npm install playwright cucumber playwright-cucumber --save-dev
+
 npm init playwright@latest -y
 npx playwright test
 npx playwright test --ui

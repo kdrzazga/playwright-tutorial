@@ -1,17 +1,19 @@
 {
-  "name": "playwright-tutorial",
+  "name": "cucumber-pw",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "test": "cucumber-js"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "@playwright/test": "^1.34.3"
-  },
   "dependencies": {
-    "cucumber": "^6.0.7",
+    "cucumber": "^6.0.7"
+  },
+  "devDependencies": {
+    "assert": "^2.0.0",
     "playwright": "^1.34.3",
     "playwright-cucumber": "^1.0.15"
   }
