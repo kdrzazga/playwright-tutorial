@@ -122,4 +122,6 @@ test('input form demo', async ({ page }) => {
 		expect(elementVisible).toBe(false);
 	}));
 
+  await page.screenshot( {path: '3_input_form.png'} );
+
 });
