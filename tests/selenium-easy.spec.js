@@ -4,6 +4,7 @@ global.mainUrl = 'http://demo.seleniumeasy.com/';
 global.checkboxesUrl = mainUrl + 'basic-checkbox-demo.html';
 global.simpleFormUrl = mainUrl + 'basic-first-form-demo.html';
 global.inputFormUrl = mainUrl + 'input-form-demo.html';
+global.popupsUrl = mainUrl + 'window-popup-modal-demo.html';
 
 test('has title', async ({ page }) => {
   console.log(`Navigating to ${global.mainUrl}`);
@@ -38,6 +39,18 @@ test('checkboxes', async ({ page }) => {
   await page.screenshot({ path: '1_checkboxes.png' });
 });
 
+async function enterA(page, a){
+	page.locator('#value1').type(a.toString());
+}
+
+async function enterB(page, b){
+	page.locator('#value2').type(b.toString());
+}
+
+async function readResult(page){
+	return page.$('#displayvalue').textContent();
+}
+
 test('simple form', async ({ page }) => {
   console.log(`Navigating to ${simpleFormUrl}`);
   await page.goto(simpleFormUrl);
@@ -45,19 +58,16 @@ test('simple form', async ({ page }) => {
   const a = 3;
   const b = 2;
   var expectedResult = a + b;
-  
-  const textboxA = await page.$('#value1');
-  await textboxA.type(a.toString());
-  
-  const textboxB = await page.$('#value2');
-  await textboxB.type(b.toString());
-  
+ 
+  await enterA(page, a);
+  await enterB(page, b);
+    
   const buttons = await page.$$('[class=\'btn btn-primary\']');
   const sumButton = buttons[1];
   await sumButton.click();
 
   const result = await page.$('#displayvalue');
-  const resultString = await result.textContent();
+  const resultString = await result.textContent();//await readResult(page);
   
   await page.screenshot({ path: '2_forms.png' });
   
@@ -124,4 +134,12 @@ test('input form demo', async ({ page }) => {
 
   await page.screenshot( {path: '3_input_form.png'} );
 
+});
+
+test('popups', async ({ page }) => {
+  console.log(`Navigating to ${popupsUrl}`);
+  await page.goto(popupsUrl);
+
+  await page.$("[href='https://twitter.com/intent/follow?screen_name=seleniumeasy']").click();
+  
 });
