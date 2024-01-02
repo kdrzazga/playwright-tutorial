@@ -7,38 +7,7 @@ global.simpleFormUrl = mainUrl + 'basic-first-form-demo.html';
 global.inputFormUrl = mainUrl + 'input-form-demo.html';
 global.popupsUrl = mainUrl + 'window-popup-modal-demo.html';
 
-test('has title', async ({ page }) => {
-  console.log(`Navigating to ${global.mainUrl}`);
-  await page.goto(global.mainUrl);
-
-  // Expect a title "to contain" a substring.
-  await expect(page).toHaveTitle(/Selenium Easy/);
-});
-
-test('checkboxes', async ({ page }) => {
-  console.log(`Navigating to ${checkboxesUrl}`);
-  await page.goto(checkboxesUrl);
-
-  const checkAllButton = await page.$('#check1');
-  await checkAllButton.click();
-
-  // Expects the URL to contain intro.
-  await expect(page).toHaveURL(/.*checkbox/);
-  
-  const checkboxDivs = await page.$$('.checkbox');
-  
-  for (const chkboxDiv of checkboxDivs) {
-	  const label = await chkboxDiv.$('label');//.$('input');
-	  //const labelText = await label.isVisible(); //no such method
-	  const divText = await chkboxDiv.textContent();
-	  const message = 'Text from div: ' + divText.trim();
-	  const checkbox = await chkboxDiv.$('input');
-	  //const isChecked = await chkbox.isChecked(); //no such method
-	  console.log(divText.trim());
-  }
-  
-  await page.screenshot({ path: '1_checkboxes.png' });
-});
+/*
 
 async function enterA(page, a){
 	page.locator('#value1').type(a.toString());
@@ -51,7 +20,23 @@ async function enterB(page, b){
 async function readResult(page){
 	return page.$('#displayvalue').textContent();
 }
+*/
 
+
+	let paginationPage;
+	
+	async function beforeEach(() => {
+		paginationPage = new TablePaginationPage();
+		paginationPage.navigate();
+	});
+	
+	test('test table pagination', async ( {page} ) => {
+		
+	});
+
+
+
+/*
 test('simple form', async ({ page }) => {
   console.log(`Navigating to ${simpleFormUrl}`);
   await page.goto(simpleFormUrl);
@@ -136,15 +121,4 @@ test('input form demo', async ({ page }) => {
   await page.screenshot( {path: '3_input_form.png'} );
 
 });
-
-test('popups', async ({ page }) => {
-  console.log(`Navigating to ${popupsUrl}`);
-  await page.goto(popupsUrl);
-
-  const twitterHeader = await page.locator('text = "Single Window Popup"');
-  const headerText = await twitterHeader.textContent();
-  console.log(`${twitterHeader}`);
-  
-  //await page.$("[href='https://twitter.com/intent/follow?screen_name=seleniumeasy']").click();
-  
-});
+*/
